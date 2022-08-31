@@ -1,8 +1,8 @@
-import {Result} from "./types";
+import {Failure, Success} from "./types";
 
 // TODO: Implement Success
-const success = <SUCCESS, FAILURE>(aSuccess?: SUCCESS): Result<SUCCESS, FAILURE> => aSuccess as Result<SUCCESS, FAILURE>
+const success = <SUCCESS>(aSuccess?: SUCCESS): Success<SUCCESS> => aSuccess as Success<SUCCESS>
 // TODO: Implement Failure
-const failure = <SUCCESS, FAILURE>(aFailure?: FAILURE): Result<SUCCESS, FAILURE> => aFailure as Result<SUCCESS, FAILURE>
+const failure = <FAILURE>(aFailure?: FAILURE): Failure<FAILURE> => aFailure as Failure<FAILURE>
 
 export {failure, success}
