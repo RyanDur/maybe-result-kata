@@ -42,7 +42,7 @@ describe('the Maybe', () => {
     const thisShouldNotHappen = () => expect.fail('this should not happen');
     const otherValue = faker.lorem.sentence();
 
-    describe('with custom isNothing definition', () => {
+    describe('with custom isSomething definition', () => {
         describe('something', () => {
             const maybeValue = maybe(undefined, true);
 
@@ -93,7 +93,7 @@ describe('the Maybe', () => {
         });
     });
 
-    describe('with default isNothing definition', () => {
+    describe('with default isSomething definition', () => {
         describe('nothing', () => {
             nothings.forEach(value => {
                 const maybeValue = maybe(value);
