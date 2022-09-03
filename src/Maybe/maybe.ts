@@ -1,8 +1,5 @@
 import {Maybe, Nothing, Some} from "./types";
 
-// TODO: Implement Maybe
-const maybe= <T>(thing?: T, isSomething?: boolean): Maybe<T> => (thing === isSomething) as unknown as Maybe<T>
-
 // TODO: Implement Some
 const some = <T>(thing: T): Some<T> => ({
     isNothing: undefined,
@@ -14,6 +11,7 @@ const some = <T>(thing: T): Some<T> => ({
     toResult: () => undefined,
     inspect: () => undefined
 }) as unknown as Some<T>
+// remove ^^^^^^^^^^^^ after implementation
 
 // TODO: Implement Nothing
 const nothing = (): Nothing => ({
@@ -26,5 +24,9 @@ const nothing = (): Nothing => ({
     toResult: () => undefined,
     inspect: () => undefined
 }) as unknown as Nothing
+// remove ^^^^^^^^^^^^ after implementation
 
+// TODO: Implement Maybe
+const maybe= <T>(thing?: T, isSomething?: boolean): Maybe<T> => (thing === isSomething) as unknown as Maybe<T>
+//                                                      replace ^^^^^^^^^^^with your implementation^^^^^^^^^^^
 export {maybe, some, nothing}
