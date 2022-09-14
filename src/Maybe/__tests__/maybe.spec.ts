@@ -4,7 +4,6 @@ import {Maybe} from "../types";
 
 describe('the Maybe', () => {
     const SOMETHING = 'SOMETHING';
-    const OTHER_THING = 'OTHER_THING';
     const NOTHING = undefined;
     const thisShouldNotHappen = () => fail('this should not happen');
     const otherValue = faker.lorem.sentence();
@@ -13,20 +12,23 @@ describe('the Maybe', () => {
         describe('something', () => {
             describe('why it is a monad', () => {
                 test.skip('orElse: for SOMETHING should not provide the fallback value', () =>
-                    expect(maybeValue.orElse(OTHER_THING)).toBe(expected));
+                    expect(maybeValue.orElse(otherValue)).toBe(expected));
 
                 test.skip(`map: for SOMETHING is ${maybeValue.inspect?.()} `, () =>
-                    expect(maybeValue.map(() => expected).orElse(OTHER_THING)).toEqual(expected));
+                    expect(maybeValue.map(inner => `${inner} ${SOMETHING}`).orElse(otherValue))
+                        .toEqual(`${expected} ${SOMETHING}`));
 
-                test.skip('mBind: for SOMETHING should allow us to bind to another maybe', () => {
-                    expect(maybeValue.mBind(inner => some(`${inner}, ${otherValue}`)).orNull())
-                        .toEqual(`${expected}, ${otherValue}`);
-                    expect(maybeValue.mBind(() => nothing()).orNull())
-                        .toEqual(null);
+                describe('mBind: for SOMETHING ', () => {
+                    test.skip('should allow us to migrate to a different something', () =>
+                        expect(maybeValue.mBind(inner => some(`${inner}, ${otherValue}`)).orNull())
+                            .toEqual(`${expected}, ${otherValue}`));
+
+                    test.skip('should allow us to bind to nothing', () =>
+                        expect(maybeValue.mBind(() => nothing()).orNull()).toEqual(null))
                 });
 
-                test.skip(`or: for SOMETHING is ${maybeValue.inspect?.()}`, () =>
-                    expect(maybeValue.or(thisShouldNotHappen).orElse(OTHER_THING)).toBe(expected));
+                test.skip(`or: for SOMETHING should be skipped`, () =>
+                    expect(maybeValue.or(thisShouldNotHappen).orElse(otherValue)).toBe(expected));
             });
 
             test.skip(`toResult: for SOMETHING is ${maybeValue.inspect?.()} should be a Success`, () =>
@@ -48,9 +50,12 @@ describe('the Maybe', () => {
                 test.skip('mBind: for undefined should be skipped', () =>
                     expect(maybeValue.mBind(thisShouldNotHappen).orNull()).toEqual(null));
 
-                test.skip(`or: for undefined is ${maybeValue.inspect?.()}`, () => {
-                    expect(maybeValue.or(() => some(otherValue)).orNull()).toEqual(otherValue);
-                    expect(maybeValue.mBind(() => nothing()).orNull()).toEqual(null);
+                describe('or: for undefined', () => {
+                    test.skip(`should allow us to migrate to a something`, () =>
+                        expect(maybeValue.or(() => some(otherValue)).orNull()).toEqual(otherValue));
+
+                    test.skip('should allow us to migrate to a different nothing', () =>
+                        expect(maybeValue.mBind(() => nothing()).orNull()).toEqual(null));
                 });
             });
 
