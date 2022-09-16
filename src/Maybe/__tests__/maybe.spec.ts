@@ -71,7 +71,7 @@ describe('the Maybe', () => {
         testNothing(maybe(SOMETHING, false));
     });
 
-    describe.skip('with default isSomething definition', () => {
+    describe('with default isSomething definition', () => {
         describe('what is nothing', () => {
             [
                 NaN,
@@ -108,7 +108,7 @@ describe('the Maybe', () => {
                 SOMETHING,
                 "", // eslint-disable-line
                 '',
-                ``  // eslint-disable-line
+                ``  // eslint-disable-line */
             ].forEach(value => testSomething(maybe(value), value));
         });
     });

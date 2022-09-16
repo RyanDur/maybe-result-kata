@@ -28,6 +28,6 @@ const nothing = (): Nothing => ({
 // remove ^^^^^^^^^^^^ after implementation
 
 // TODO: Implement Maybe
-const maybe= <T>(thing?: T, isSomething?: boolean): Maybe<T> => (isSomething ? some(thing) : nothing()) as Maybe<T>
+const maybe= <T>(thing?: T, isSomething?: boolean): Maybe<T> => ((isSomething===undefined? thing: isSomething) ? some(thing) : nothing()) as Maybe<T>
 //                                                      replace ^^^^^^^^^^^with your implementation^^^^^^^^^^^
 export {maybe, some, nothing}
